@@ -1,268 +1,315 @@
 
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Caesar-Studio</title>
 
 <style>
-  :root {
-    --outer: #7450b5;
-    --inner: #f3ce75;
-    --outer-text: #ffffff;
-    --inner-text: #49351a;
-    --background: #f5f3f8;
-    --surface: #ffffff;
-    --text: #302b38;
-    --border: #ded9e5;
-  }
+    :root {
+        --outer: #7450b5;
+        --inner: #f3ce75;
+        --outer-text: #ffffff;
+        --inner-text: #49351b;
+        --background: #f6f5f9;
+        --panel: #ffffff;
+        --text: #292532;
+        --border: #dedbe5;
+    }
 
-  body.monochrome {
-    --outer: #404040;
-    --inner: #d6d6d6;
-    --outer-text: #ffffff;
-    --inner-text: #252525;
-    --background: #f3f3f3;
-    --surface: #ffffff;
-    --text: #252525;
-    --border: #d4d4d4;
-  }
+    body.monochrome {
+        --outer: #404040;
+        --inner: #d6d6d6;
+        --outer-text: #ffffff;
+        --inner-text: #222222;
+        --background: #f2f2f2;
+        --border: #cccccc;
+    }
 
-  * {
-    box-sizing: border-box;
-  }
+    * {
+        box-sizing: border-box;
+    }
 
-  body {
-    margin: 0;
-    padding: 24px;
-    font-family: Arial, Helvetica, sans-serif;
-    background: var(--background);
-    color: var(--text);
-  }
-
-  .studio {
-    max-width: 1100px;
-    margin: auto;
-    background: var(--surface);
-    border-radius: 20px;
-    padding: 28px;
-    box-shadow: 0 4px 24px #00000009;
-  }
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-
-  h1 {
-    font-size: 28px;
-    margin: 0;
-  }
-
-  .settings {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  button {
-    font: inherit;
-    color: var(--text);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    padding: 11px 16px;
-    cursor: pointer;
-    touch-action: manipulation;
-  }
-
-  button:hover {
-    background: var(--background);
-  }
-
-  button:active {
-    transform: scale(0.97);
-  }
-
-  button:focus-visible {
-    outline: 3px solid var(--outer);
-    outline-offset: 3px;
-  }
-
-  .legend {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin: 16px 0;
-  }
-
-  .legend span {
-    padding: 9px 20px;
-    border-radius: 7px;
-    font-weight: bold;
-  }
-
-  .plaintext {
-    background: var(--outer);
-    color: var(--outer-text);
-  }
-
-  .ciphertext {
-    background: var(--inner);
-    color: var(--inner-text);
-  }
-
-  .wheel-container {
-    width: 100%;
-    max-width: 520px;
-    margin: 20px auto;
-    user-select: none;
-    -webkit-user-select: none;
-  }
-
-  #wheel {
-    display: block;
-    width: 100%;
-    height: auto;
-    overflow: visible;
-  }
-
-  #innerRing {
-    cursor: grab;
-    touch-action: none;
-  }
-
-  #innerRing.dragging {
-    cursor: grabbing;
-  }
-
-  .outer-fill {
-    fill: var(--outer);
-  }
-
-  .inner-fill {
-    fill: var(--inner);
-  }
-
-  .outer-letter {
-    fill: var(--outer-text);
-  }
-
-  .inner-letter {
-    fill: var(--inner-text);
-  }
-
-  .letter {
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 500;
-    text-anchor: middle;
-    dominant-baseline: central;
-    pointer-events: none;
-  }
-
-  .separator {
-    stroke: var(--surface);
-    stroke-width: 2;
-    pointer-events: none;
-  }
-
-  .center-circle {
-    fill: var(--surface);
-    stroke: var(--border);
-    stroke-width: 1.5;
-  }
-
-  .key-label {
-    fill: var(--text);
-    font-size: 20px;
-    text-anchor: middle;
-    pointer-events: none;
-  }
-
-  .key-number {
-    fill: var(--outer);
-    font-size: 48px;
-    font-weight: bold;
-    text-anchor: middle;
-    pointer-events: none;
-  }
-
-  .controls {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 20px 0;
-  }
-
-  .controls button {
-    min-width: 80px;
-    font-size: 18px;
-  }
-
-  .hint {
-    text-align: center;
-    font-size: 14px;
-    opacity: 0.75;
-    margin: 16px 0 28px;
-  }
-
-  .alphabet-wrapper {
-    overflow-x: auto;
-    border-radius: 8px;
-  }
-
-  .alphabet-table {
-    width: 100%;
-    min-width: 780px;
-    border-collapse: collapse;
-    table-layout: fixed;
-  }
-
-  .alphabet-table td {
-    text-align: center;
-    font-size: 19px;
-    padding: 13px 0;
-    border: 1px solid var(--surface);
-  }
-
-  @media (max-width: 600px) {
     body {
-      padding: 10px;
+        margin: 0;
+        padding: 24px 16px;
+        background: var(--background);
+        color: var(--text);
+        font-family: Arial, sans-serif;
     }
 
     .studio {
-      padding: 16px;
-      border-radius: 12px;
+        max-width: 1050px;
+        margin: auto;
+        padding: 24px;
+        background: var(--panel);
+        border-radius: 24px;
+        box-shadow: 0 6px 30px #0000000d;
     }
 
     header {
-      justify-content: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
     }
 
     h1 {
-      width: 100%;
-      text-align: center;
-      font-size: 25px;
+        margin: 0;
+        font-size: clamp(26px, 5vw, 36px);
     }
 
-    .settings {
-      justify-content: center;
+    .toolbar {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    button {
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 500;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px 18px;
+        background: var(--panel);
+        color: var(--text);
+        cursor: pointer;
+        touch-action: manipulation;
+        transition: background 0.15s;
+    }
+
+    button:hover {
+        background: var(--background);
+    }
+
+    button:active {
+        transform: scale(0.97);
+    }
+
+    button:focus-visible {
+        outline: 3px solid var(--outer);
+        outline-offset: 3px;
+    }
+
+    .legend {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin: 24px 0 8px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .color-box {
+        width: 18px;
+        height: 18px;
+        border-radius: 5px;
+    }
+
+    .outer-color {
+        background: var(--outer);
+    }
+
+    .inner-color {
+        background: var(--inner);
     }
 
     .wheel-container {
-      margin: 12px auto;
+        width: 100%;
+        max-width: 570px;
+        margin: 10px auto;
     }
 
-    .alphabet-table td {
-      font-size: 16px;
+    #wheel {
+        display: block;
+        width: 100%;
+        height: auto;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: none;
     }
-  }
+
+    .ring {
+        cursor: grab;
+        touch-action: none;
+    }
+
+    .ring.dragging {
+        cursor: grabbing;
+    }
+
+    .ring-letter {
+        font-family: Arial, sans-serif;
+        font-weight: 500;
+        text-anchor: middle;
+        dominant-baseline: central;
+        pointer-events: none;
+    }
+
+    .outer-segment {
+        fill: var(--outer);
+        stroke: white;
+        stroke-width: 1.6;
+    }
+
+    .inner-segment {
+        fill: var(--inner);
+        stroke: white;
+        stroke-width: 1.6;
+    }
+
+    .outer-letter {
+        fill: var(--outer-text);
+    }
+
+    .inner-letter {
+        fill: var(--inner-text);
+    }
+
+    .center-circle {
+        fill: var(--panel);
+        stroke: var(--border);
+        stroke-width: 1.5;
+    }
+
+    .center-label {
+        font-size: 19px;
+        font-weight: 500;
+        fill: var(--text);
+        text-anchor: middle;
+    }
+
+    #keyDisplay {
+        font-size: 48px;
+        font-weight: bold;
+        fill: var(--outer);
+        text-anchor: middle;
+        dominant-baseline: central;
+    }
+
+    .center-display {
+        pointer-events: none;
+    }
+
+    .controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 16px 0;
+    }
+
+    .shift-button {
+        min-width: 85px;
+        font-size: 18px;
+    }
+
+    #resetButton {
+        font-size: 18px;
+    }
+
+    .hint {
+        text-align: center;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #77717f;
+        margin: 12px 0 26px;
+    }
+
+    .mapping-section {
+        border-top: 1px solid var(--border);
+        padding-top: 20px;
+    }
+
+    h2 {
+        font-size: 18px;
+        margin: 0 0 14px;
+    }
+
+    .table-container {
+        overflow-x: auto;
+        padding-bottom: 5px;
+    }
+
+    table {
+        width: 100%;
+        min-width: 780px;
+        table-layout: fixed;
+        border-collapse: separate;
+        border-spacing: 3px;
+    }
+
+    td {
+        padding: 10px 0;
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        border-radius: 4px;
+    }
+
+    #plainRow td {
+        background: var(--outer);
+        color: var(--outer-text);
+    }
+
+    #cipherRow td {
+        background: var(--inner);
+        color: var(--inner-text);
+    }
+
+    @media (max-width: 600px) {
+        body {
+            padding: 10px;
+        }
+
+        .studio {
+            padding: 16px;
+            border-radius: 16px;
+        }
+
+        header {
+            justify-content: center;
+        }
+
+        .toolbar {
+            justify-content: center;
+        }
+
+        button {
+            padding: 10px 14px;
+        }
+
+        .legend {
+            gap: 12px;
+            font-size: 12px;
+        }
+
+        .controls {
+            gap: 6px;
+        }
+
+        .shift-button {
+            min-width: 65px;
+            font-size: 16px;
+        }
+
+        #resetButton {
+            font-size: 16px;
+        }
+    }
 </style>
 </head>
 
@@ -270,515 +317,731 @@
 
 <main class="studio">
 
-  <header>
-    <h1>Caesar-Studio</h1>
+    <header>
+        <h1>Caesar-Studio</h1>
 
-    <div class="settings">
-      <button id="themeButton" aria-pressed="false">
-        ◐ Schwarz-Weiß
-      </button>
+        <div class="toolbar">
 
-      <button id="soundButton" aria-pressed="true">
-        🔊 Ton an
-      </button>
+            <button id="themeButton">
+                ◐ Lila &amp; Gold
+            </button>
+
+            <button id="soundButton" aria-pressed="true">
+                🔊 Ton an
+            </button>
+
+        </div>
+    </header>
+
+    <div class="legend">
+
+        <div class="legend-item">
+            <span class="color-box outer-color"></span>
+            Klartext
+        </div>
+
+        <div class="legend-item">
+            <span class="color-box inner-color"></span>
+            Geheimtext
+        </div>
+
     </div>
-  </header>
 
-  <div class="legend">
-    <span class="plaintext">Klartext</span>
-    <span class="ciphertext">Geheimtext</span>
-  </div>
+    <div class="wheel-container">
 
-  <div class="wheel-container">
+        <svg id="wheel"
+             viewBox="0 0 440 440"
+             xmlns="http://www.w3.org/2000/svg"
+             aria-label="Caesar-Scheibe mit zwei drehbaren Buchstabenringen">
 
-    <svg id="wheel"
-         viewBox="0 0 440 440"
-         xmlns="http://www.w3.org/2000/svg"
-         aria-label="Interaktive Caesar-Scheibe">
+            <!-- Äußerer Buchstabenring -->
 
-      <!-- Feststehender Außenring -->
-      <g id="outerRing"></g>
+            <g id="outerRing" class="ring"></g>
 
-      <!-- Drehbarer Innenring -->
-      <g id="innerRing"></g>
+            <!-- Innerer Buchstabenring -->
 
-      <!-- Feststehende Schlüsselanzeige -->
-      <circle class="center-circle"
-              cx="220" cy="220" r="86"/>
+            <g id="innerRing" class="ring"></g>
 
-      <text class="key-label"
-            x="220" y="207">
-        Schlüssel
-      </text>
+            <!-- Unbewegliche Mitte -->
 
-      <text class="key-number"
-            id="keyDisplay"
-            x="220" y="259">
-        0
-      </text>
+            <g class="center-display">
 
-    </svg>
+                <circle
+                    cx="220"
+                    cy="220"
+                    r="86"
+                    class="center-circle"
+                />
 
-  </div>
+                <text
+                    x="220"
+                    y="207"
+                    class="center-label">
+                    Schlüssel
+                </text>
 
-  <div class="controls">
-    <button id="minusButton"
-            aria-label="Schlüssel um eins verringern">
-      ↶ −1
-    </button>
+                <text
+                    x="220"
+                    y="242"
+                    id="keyDisplay">
+                    0
+                </text>
 
-    <button id="resetButton">
-      Zurücksetzen
-    </button>
+            </g>
 
-    <button id="plusButton"
-            aria-label="Schlüssel um eins erhöhen">
-      +1 ↷
-    </button>
-  </div>
+        </svg>
 
-  <p class="hint">
-    Drehe den inneren Ring mit der Maus oder dem Finger.
-  </p>
+    </div>
 
-  <div class="alphabet-wrapper">
-    <table class="alphabet-table"
-           aria-label="Zuordnung von Klartext und Geheimtext">
-      <tbody>
-        <tr id="plainRow" class="plaintext"></tr>
-        <tr id="cipherRow" class="ciphertext"></tr>
-      </tbody>
-    </table>
-  </div>
+    <!-- Steuerung unterhalb der Scheibe -->
+
+    <div class="controls">
+
+        <button id="minusButton"
+                class="shift-button"
+                aria-label="Schlüssel um eins verringern">
+            ↶ −1
+        </button>
+
+        <button id="resetButton">
+            Zurücksetzen
+        </button>
+
+        <button id="plusButton"
+                class="shift-button"
+                aria-label="Schlüssel um eins erhöhen">
+            +1 ↷
+        </button>
+
+    </div>
+
+    <p class="hint">
+        Drehe beide Ringe mit der Maus oder dem Finger.
+    </p>
+
+    <section class="mapping-section">
+
+        <h2>Buchstabenzuordnung</h2>
+
+        <div class="table-container">
+
+            <table aria-label="Zuordnung von Klartext und Geheimtext">
+
+                <tbody>
+                    <tr id="plainRow"></tr>
+                    <tr id="cipherRow"></tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
 
 </main>
 
 <script>
 
-  // ==========================================
-  // 1. Grundeinstellungen
-  // ==========================================
+    // ========================================
+    // Grundeinstellungen
+    // ========================================
 
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const letterAngle = 360 / 26;
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-  const center = 220;
+    const letterCount = alphabet.length;
+    const letterAngle = 360 / letterCount;
+    const center = 220;
 
-  let rotationSteps = 0;
-  let key = 0;
+    const svgNS = "http://www.w3.org/2000/svg";
 
-  let soundEnabled = true;
-  let audioContext = null;
+    const wheel =
+        document.getElementById("wheel");
 
-  const wheel = document.getElementById("wheel");
-  const outerRing = document.getElementById("outerRing");
-  const innerRing = document.getElementById("innerRing");
-  const keyDisplay = document.getElementById("keyDisplay");
+    const outerRing =
+        document.getElementById("outerRing");
 
-  const plainRow = document.getElementById("plainRow");
-  const cipherRow = document.getElementById("cipherRow");
+    const innerRing =
+        document.getElementById("innerRing");
 
-  const svgNS = "http://www.w3.org/2000/svg";
+    const keyDisplay =
+        document.getElementById("keyDisplay");
+
+    const minusButton =
+        document.getElementById("minusButton");
+
+    const plusButton =
+        document.getElementById("plusButton");
+
+    const plainRow =
+        document.getElementById("plainRow");
+
+    const cipherRow =
+        document.getElementById("cipherRow");
 
 
-  // ==========================================
-  // 2. SVG-Elemente erzeugen
-  // ==========================================
+    // Beide Ringe besitzen eine eigene Position.
 
-  function createSVG(tag, attributes) {
+    const outerState = {
+        steps: 0,
+        element: outerRing
+    };
 
-    const element = document.createElementNS(svgNS, tag);
+    const innerState = {
+        steps: 0,
+        element: innerRing
+    };
 
-    for (const name in attributes) {
-      element.setAttribute(name, attributes[name]);
+    let key = 0;
+    let soundEnabled = true;
+    let audioContext = null;
+
+
+    // ========================================
+    // Hilfsfunktionen
+    // ========================================
+
+    function modulo(number, divisor) {
+        return ((number % divisor) + divisor) % divisor;
     }
 
-    return element;
-  }
+    function createSVG(tag, attributes = {}) {
+
+        const element =
+            document.createElementNS(svgNS, tag);
+
+        for (const [name, value] of Object.entries(attributes)) {
+            element.setAttribute(name, value);
+        }
+
+        return element;
+    }
+
+    function polarPoint(radius, angle) {
+
+        const radians =
+            (angle - 90) * Math.PI / 180;
+
+        return {
+            x: center + radius * Math.cos(radians),
+            y: center + radius * Math.sin(radians)
+        };
+    }
 
 
-  // ==========================================
-  // 3. Alphabetscheiben zeichnen
-  // ==========================================
+    // ========================================
+    // Buchstabenringe erstellen
+    // ========================================
 
-  function createRing(group, outerRadius, innerRadius,
-                      fillClass, letterClass, fontSize) {
+    function createRing(
+        group,
+        outerRadius,
+        innerRadius,
+        type,
+        fontSize
+    ) {
 
-    const circle = createSVG("circle", {
-      cx: center,
-      cy: center,
-      r: outerRadius,
-      class: fillClass
+        for (let i = 0; i < letterCount; i++) {
+
+            const angle = i * letterAngle;
+
+            const startAngle =
+                angle - letterAngle / 2;
+
+            const endAngle =
+                angle + letterAngle / 2;
+
+            const p1 =
+                polarPoint(outerRadius, startAngle);
+
+            const p2 =
+                polarPoint(outerRadius, endAngle);
+
+            const p3 =
+                polarPoint(innerRadius, endAngle);
+
+            const p4 =
+                polarPoint(innerRadius, startAngle);
+
+            const pathData = [
+                `M ${p1.x} ${p1.y}`,
+                `A ${outerRadius} ${outerRadius} 0 0 1 ${p2.x} ${p2.y}`,
+                `L ${p3.x} ${p3.y}`,
+                `A ${innerRadius} ${innerRadius} 0 0 0 ${p4.x} ${p4.y}`,
+                "Z"
+            ].join(" ");
+
+            const segment = createSVG("path", {
+                d: pathData,
+                class: `${type}-segment`
+            });
+
+            group.appendChild(segment);
+
+            const textRadius =
+                (outerRadius + innerRadius) / 2;
+
+            const textPosition =
+                polarPoint(textRadius, angle);
+
+            const letter = createSVG("text", {
+                x: textPosition.x,
+                y: textPosition.y,
+                "font-size": fontSize,
+                class: `ring-letter ${type}-letter`,
+                transform:
+                    `rotate(${angle} ${textPosition.x} ${textPosition.y})`
+            });
+
+            letter.textContent = alphabet[i];
+
+            group.appendChild(letter);
+        }
+    }
+
+    createRing(
+        outerRing,
+        210,
+        151,
+        "outer",
+        29
+    );
+
+    createRing(
+        innerRing,
+        148,
+        86,
+        "inner",
+        25
+    );
+
+
+    // ========================================
+    // Zuordnungstabelle
+    // ========================================
+
+    function updateTable() {
+
+        plainRow.innerHTML = "";
+        cipherRow.innerHTML = "";
+
+        for (let i = 0; i < letterCount; i++) {
+
+            const plainCell =
+                document.createElement("td");
+
+            plainCell.textContent = alphabet[i];
+
+            plainRow.appendChild(plainCell);
+
+            const cipherCell =
+                document.createElement("td");
+
+            cipherCell.textContent =
+                alphabet[modulo(i + key, letterCount)];
+
+            cipherRow.appendChild(cipherCell);
+        }
+    }
+
+
+    // ========================================
+    // Mechanischer Klicksound
+    // ========================================
+
+    function prepareAudio() {
+
+        if (!soundEnabled) return;
+
+        try {
+
+            if (!audioContext) {
+
+                const AudioContextClass =
+                    window.AudioContext ||
+                    window.webkitAudioContext;
+
+                if (!AudioContextClass) return;
+
+                audioContext =
+                    new AudioContextClass();
+            }
+
+            if (audioContext.state === "suspended") {
+                audioContext.resume().catch(() => {});
+            }
+
+        } catch (error) {
+            // Die Scheibe funktioniert auch ohne Ton.
+        }
+    }
+
+    function playClick() {
+
+        if (
+            !soundEnabled ||
+            !audioContext ||
+            audioContext.state !== "running"
+        ) return;
+
+        const duration = 0.035;
+
+        const sampleCount = Math.max(
+            1,
+            Math.floor(audioContext.sampleRate * duration)
+        );
+
+        const buffer = audioContext.createBuffer(
+            1,
+            sampleCount,
+            audioContext.sampleRate
+        );
+
+        const data = buffer.getChannelData(0);
+
+        for (let i = 0; i < sampleCount; i++) {
+
+            const decay =
+                Math.exp(-i / (sampleCount * 0.16));
+
+            data[i] =
+                (Math.random() * 2 - 1) * decay;
+        }
+
+        const source =
+            audioContext.createBufferSource();
+
+        source.buffer = buffer;
+
+        const filter =
+            audioContext.createBiquadFilter();
+
+        filter.type = "bandpass";
+        filter.frequency.value = 1800;
+        filter.Q.value = 0.8;
+
+        const gain =
+            audioContext.createGain();
+
+        gain.gain.value = 0.25;
+
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioContext.destination);
+
+        source.start();
+    }
+
+
+    // ========================================
+    // Schlüssel und Drehposition aktualisieren
+    // ========================================
+
+    function updateWheel() {
+
+        outerRing.setAttribute(
+            "transform",
+            `rotate(${outerState.steps * letterAngle} ${center} ${center})`
+        );
+
+        innerRing.setAttribute(
+            "transform",
+            `rotate(${innerState.steps * letterAngle} ${center} ${center})`
+        );
+
+        // Relative Verschiebung der beiden Ringe.
+
+        key = modulo(
+            outerState.steps - innerState.steps,
+            letterCount
+        );
+
+        // Schlüssel in der Mitte: 0 bis 25.
+
+        keyDisplay.textContent = key;
+
+        // Verschiebungswerte unterhalb der Scheibe.
+
+        if (key === 0) {
+
+            minusButton.textContent = "↶ −1";
+            plusButton.textContent = "+1 ↷";
+
+        } else {
+
+            minusButton.textContent =
+                `↶ −${letterCount - key}`;
+
+            plusButton.textContent =
+                `+${key} ↷`;
+        }
+
+        updateTable();
+    }
+
+    function setRotation(state, newSteps, withSound = true) {
+
+        const changed = state.steps !== newSteps;
+
+        state.steps = newSteps;
+
+        updateWheel();
+
+        if (changed && withSound) {
+            playClick();
+        }
+    }
+
+
+    // ========================================
+    // Maus- und Touchsteuerung
+    // ========================================
+
+    function getPointerAngle(event) {
+
+        const point = wheel.createSVGPoint();
+
+        point.x = event.clientX;
+        point.y = event.clientY;
+
+        const matrix = wheel.getScreenCTM();
+
+        if (!matrix) return null;
+
+        const localPoint = point.matrixTransform(
+            matrix.inverse()
+        );
+
+        const dx = localPoint.x - center;
+        const dy = localPoint.y - center;
+
+        if (Math.hypot(dx, dy) < 20) {
+            return null;
+        }
+
+        return Math.atan2(dy, dx) * 180 / Math.PI;
+    }
+
+    function enableDragging(state) {
+
+        const ring = state.element;
+
+        let activePointer = null;
+        let previousAngle = 0;
+        let accumulatedAngle = 0;
+        let startingSteps = 0;
+
+        ring.addEventListener("pointerdown", event => {
+
+            if (activePointer !== null) return;
+
+            if (
+                event.pointerType === "mouse" &&
+                event.button !== 0
+            ) return;
+
+            const angle = getPointerAngle(event);
+
+            if (angle === null) return;
+
+            event.preventDefault();
+
+            prepareAudio();
+
+            activePointer = event.pointerId;
+
+            previousAngle = angle;
+
+            accumulatedAngle = 0;
+
+            startingSteps = state.steps;
+
+            ring.classList.add("dragging");
+
+            ring.setPointerCapture(event.pointerId);
+        });
+
+        ring.addEventListener("pointermove", event => {
+
+            if (event.pointerId !== activePointer) {
+                return;
+            }
+
+            const currentAngle =
+                getPointerAngle(event);
+
+            if (currentAngle === null) return;
+
+            let difference =
+                currentAngle - previousAngle;
+
+            // Verhindert Sprünge am Winkelübergang.
+
+            if (difference > 180) {
+                difference -= 360;
+            }
+
+            if (difference < -180) {
+                difference += 360;
+            }
+
+            accumulatedAngle += difference;
+
+            previousAngle = currentAngle;
+
+            const newSteps =
+                startingSteps +
+                Math.round(
+                    accumulatedAngle / letterAngle
+                );
+
+            if (newSteps !== state.steps) {
+                setRotation(state, newSteps);
+            }
+        });
+
+        function stopDragging(event) {
+
+            if (event.pointerId !== activePointer) {
+                return;
+            }
+
+            activePointer = null;
+
+            ring.classList.remove("dragging");
+
+            if (ring.hasPointerCapture(event.pointerId)) {
+
+                ring.releasePointerCapture(
+                    event.pointerId
+                );
+            }
+        }
+
+        ring.addEventListener(
+            "pointerup",
+            stopDragging
+        );
+
+        ring.addEventListener(
+            "pointercancel",
+            stopDragging
+        );
+
+        ring.addEventListener(
+            "lostpointercapture",
+            stopDragging
+        );
+    }
+
+    // Beide Ringe unabhängig voneinander aktivieren.
+
+    enableDragging(outerState);
+    enableDragging(innerState);
+
+
+    // ========================================
+    // Steuerungsbuttons
+    // ========================================
+
+    minusButton.addEventListener("click", () => {
+
+        prepareAudio();
+
+        setRotation(
+            innerState,
+            innerState.steps + 1
+        );
     });
 
-    group.appendChild(circle);
+    plusButton.addEventListener("click", () => {
 
-    const letterRadius = (outerRadius + innerRadius) / 2;
+        prepareAudio();
 
-    for (let i = 0; i < 26; i++) {
-
-      const angle = i * letterAngle;
-
-      const segment = createSVG("g", {
-        transform: `rotate(${angle} ${center} ${center})`
-      });
-
-      const separator = createSVG("line", {
-        x1: center,
-        y1: center - outerRadius,
-        x2: center,
-        y2: center - innerRadius,
-        class: "separator",
-        transform:
-          `rotate(${-letterAngle / 2} ${center} ${center})`
-      });
-
-      const letter = createSVG("text", {
-        x: center,
-        y: center - letterRadius,
-        class: `letter ${letterClass}`,
-        "font-size": fontSize
-      });
-
-      letter.textContent = alphabet[i];
-
-      segment.appendChild(separator);
-      segment.appendChild(letter);
-
-      group.appendChild(segment);
-    }
-  }
-
-  createRing(
-    outerRing,
-    210, 151,
-    "outer-fill",
-    "outer-letter",
-    29
-  );
-
-  createRing(
-    innerRing,
-    148, 86,
-    "inner-fill",
-    "inner-letter",
-    25
-  );
-
-
-  // ==========================================
-  // 4. Substitutionstabelle
-  // ==========================================
-
-  for (let i = 0; i < 26; i++) {
-
-    const plainCell = document.createElement("td");
-    const cipherCell = document.createElement("td");
-
-    plainCell.textContent = alphabet[i];
-    cipherCell.textContent = alphabet[i];
-
-    plainRow.appendChild(plainCell);
-    cipherRow.appendChild(cipherCell);
-  }
-
-  function updateTable() {
-
-    for (let i = 0; i < 26; i++) {
-
-      cipherRow.children[i].textContent =
-        alphabet[(i + key) % 26];
-    }
-  }
-
-
-  // ==========================================
-  // 5. Mechanischer Klicksound
-  // ==========================================
-
-  function prepareAudio() {
-
-    if (!soundEnabled) return;
-
-    try {
-
-      if (!audioContext) {
-
-        const AudioClass =
-          window.AudioContext || window.webkitAudioContext;
-
-        if (!AudioClass) return;
-
-        audioContext = new AudioClass();
-      }
-
-      if (audioContext.state === "suspended") {
-        audioContext.resume().catch(() => {});
-      }
-
-    } catch (error) {
-      // Die Scheibe funktioniert auch ohne Ton.
-    }
-  }
-
-  function playClick() {
-
-    if (!soundEnabled || !audioContext) return;
-
-    if (audioContext.state !== "running") return;
-
-    const duration = 0.028;
-    const sampleRate = audioContext.sampleRate;
-
-    const buffer = audioContext.createBuffer(
-      1,
-      Math.floor(sampleRate * duration),
-      sampleRate
-    );
-
-    const data = buffer.getChannelData(0);
-
-    for (let i = 0; i < data.length; i++) {
-
-      const decay = Math.exp(-i / (sampleRate * 0.004));
-
-      data[i] = (Math.random() * 2 - 1) * decay;
-    }
-
-    const source = audioContext.createBufferSource();
-    const filter = audioContext.createBiquadFilter();
-    const volume = audioContext.createGain();
-
-    source.buffer = buffer;
-
-    filter.type = "bandpass";
-    filter.frequency.value = 1600;
-    filter.Q.value = 0.7;
-
-    volume.gain.value = 0.13;
-
-    source.connect(filter);
-    filter.connect(volume);
-    volume.connect(audioContext.destination);
-
-    source.start();
-  }
-
-
-  // ==========================================
-  // 6. Schlüssel und Drehung aktualisieren
-  // ==========================================
-
-  function setRotation(steps, withSound = true) {
-
-    const previousSteps = rotationSteps;
-
-    rotationSteps = steps;
-
-    key = ((-rotationSteps % 26) + 26) % 26;
-
-    const angle = rotationSteps * letterAngle;
-
-    innerRing.setAttribute(
-      "transform",
-      `rotate(${angle} ${center} ${center})`
-    );
-
-    keyDisplay.textContent = key;
-
-    updateTable();
-
-    if (withSound && previousSteps !== rotationSteps) {
-      playClick();
-    }
-  }
-
-
-  // ==========================================
-  // 7. Maus- und Touchsteuerung
-  // ==========================================
-
-  let activePointer = null;
-  let previousAngle = 0;
-  let accumulatedAngle = 0;
-  let startSteps = 0;
-
-  function getPointerAngle(event) {
-
-    const matrix = wheel.getScreenCTM();
-
-    if (!matrix) return null;
-
-    const point = wheel.createSVGPoint();
-
-    point.x = event.clientX;
-    point.y = event.clientY;
-
-    const position = point.matrixTransform(
-      matrix.inverse()
-    );
-
-    const dx = position.x - center;
-    const dy = position.y - center;
-
-    // Nahe der Mitte ist der Drehwinkel unzuverlässig.
-    if (Math.hypot(dx, dy) < 35) return null;
-
-    return Math.atan2(dy, dx) * 180 / Math.PI;
-  }
-
-  innerRing.addEventListener("pointerdown", event => {
-
-    if (activePointer !== null) return;
-
-    if (event.pointerType === "mouse" &&
-        event.button !== 0) return;
-
-    const angle = getPointerAngle(event);
-
-    if (angle === null) return;
-
-    event.preventDefault();
-
-    prepareAudio();
-
-    activePointer = event.pointerId;
-    previousAngle = angle;
-    accumulatedAngle = 0;
-    startSteps = rotationSteps;
-
-    innerRing.setPointerCapture(event.pointerId);
-
-    innerRing.classList.add("dragging");
-  });
-
-  innerRing.addEventListener("pointermove", event => {
-
-    if (event.pointerId !== activePointer) return;
-
-    const currentAngle = getPointerAngle(event);
-
-    if (currentAngle === null) return;
-
-    let difference = currentAngle - previousAngle;
-
-    // Verhindert Sprünge beim Überschreiten
-    // der Grenze zwischen 180 und -180 Grad.
-
-    if (difference > 180) difference -= 360;
-    if (difference < -180) difference += 360;
-
-    accumulatedAngle += difference;
-
-    previousAngle = currentAngle;
-
-    // Einrasten auf den nächsten Buchstaben.
-
-    const snappedSteps = Math.round(
-      accumulatedAngle / letterAngle
-    );
-
-    setRotation(startSteps + snappedSteps);
-  });
-
-  function stopDragging(event) {
-
-    if (event.pointerId !== activePointer) return;
-
-    activePointer = null;
-
-    innerRing.classList.remove("dragging");
-
-    if (innerRing.hasPointerCapture(event.pointerId)) {
-      innerRing.releasePointerCapture(event.pointerId);
-    }
-  }
-
-  innerRing.addEventListener("pointerup", stopDragging);
-  innerRing.addEventListener("pointercancel", stopDragging);
-  innerRing.addEventListener("lostpointercapture", stopDragging);
-
-
-  // ==========================================
-  // 8. Drehbuttons
-  // ==========================================
-
-  document.getElementById("minusButton")
-    .addEventListener("click", () => {
-
-      prepareAudio();
-      setRotation(rotationSteps + 1);
+        setRotation(
+            innerState,
+            innerState.steps - 1
+        );
     });
 
-  document.getElementById("plusButton")
-    .addEventListener("click", () => {
+    document.getElementById("resetButton")
+        .addEventListener("click", () => {
 
-      prepareAudio();
-      setRotation(rotationSteps - 1);
-    });
+            prepareAudio();
 
-  document.getElementById("resetButton")
-    .addEventListener("click", () => {
+            const changed =
+                outerState.steps !== 0 ||
+                innerState.steps !== 0;
 
-      prepareAudio();
-      setRotation(0);
+            outerState.steps = 0;
+            innerState.steps = 0;
+
+            updateWheel();
+
+            if (changed) {
+                playClick();
+            }
+        });
+
+
+    // ========================================
+    // Farbwechsel
+    // ========================================
+
+    const themeButton =
+        document.getElementById("themeButton");
+
+    themeButton.addEventListener("click", () => {
+
+        const monochrome =
+            document.body.classList.toggle(
+                "monochrome"
+            );
+
+        themeButton.textContent = monochrome
+            ? "◐ Schwarz-Weiß"
+            : "◐ Lila & Gold";
     });
 
 
-  // ==========================================
-  // 9. Farbmodus wechseln
-  // ==========================================
+    // ========================================
+    // Ton ein- und ausschalten
+    // ========================================
 
-  const themeButton =
-    document.getElementById("themeButton");
+    const soundButton =
+        document.getElementById("soundButton");
 
-  themeButton.addEventListener("click", () => {
+    soundButton.addEventListener("click", () => {
 
-    const monochrome =
-      document.body.classList.toggle("monochrome");
+        soundEnabled = !soundEnabled;
 
-    themeButton.textContent = monochrome
-      ? "◐ Farbmodus"
-      : "◐ Schwarz-Weiß";
+        soundButton.textContent = soundEnabled
+            ? "🔊 Ton an"
+            : "🔇 Ton aus";
 
-    themeButton.setAttribute(
-      "aria-pressed",
-      String(monochrome)
-    );
-  });
+        soundButton.setAttribute(
+            "aria-pressed",
+            String(soundEnabled)
+        );
 
+        if (soundEnabled) {
 
-  // ==========================================
-  // 10. Ton ein- und ausschalten
-  // ==========================================
+            prepareAudio();
 
-  const soundButton =
-    document.getElementById("soundButton");
+            if (audioContext) {
 
-  soundButton.addEventListener("click", () => {
-
-    soundEnabled = !soundEnabled;
-
-    soundButton.textContent = soundEnabled
-      ? "🔊 Ton an"
-      : "🔇 Ton aus";
-
-    soundButton.setAttribute(
-      "aria-pressed",
-      String(soundEnabled)
-    );
-
-    if (soundEnabled) {
-      prepareAudio();
-    }
-  });
+                audioContext.resume()
+                    .then(playClick)
+                    .catch(() => {});
+            }
+        }
+    });
 
 
-  // ==========================================
-  // 11. Startzustand
-  // ==========================================
+    // ========================================
+    // Startzustand
+    // ========================================
 
-  setRotation(0, false);
+    updateWheel();
 
 </script>
 
